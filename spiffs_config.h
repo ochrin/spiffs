@@ -11,16 +11,18 @@
 // ----------- 8< ------------
 // Following includes are for the linux test build of spiffs
 // These may/should/must be removed/altered/replaced in your target
-#include "params_test.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <stddef.h>
-#include <unistd.h>
-#ifdef _SPIFFS_TEST
-#include "testrunner.h"
-#endif
+//#include "params_test.h"
+//#include <stdio.h>
+//#include <stdlib.h>
+//#include <string.h>
+//#include <stddef.h>
+//#include <unistd.h>
+//#ifdef _SPIFFS_TEST
+//#include "testrunner.h"
+//#endif
 // ----------- >8 ------------
+
+#include "freertos/FreeRTOS.h"
 
 // compile time switches
 
@@ -102,7 +104,7 @@
 
 // Enable/disable statistics on caching. Debug/test purpose only.
 #ifndef  SPIFFS_CACHE_STATS
-#define SPIFFS_CACHE_STATS              1
+#define SPIFFS_CACHE_STATS              0
 #endif
 #endif
 
@@ -114,12 +116,12 @@
 
 // Define maximum number of gc runs to perform to reach desired free pages.
 #ifndef SPIFFS_GC_MAX_RUNS
-#define SPIFFS_GC_MAX_RUNS              5
+#define SPIFFS_GC_MAX_RUNS              10
 #endif
 
 // Enable/disable statistics on gc. Debug/test purpose only.
 #ifndef SPIFFS_GC_STATS
-#define SPIFFS_GC_STATS                 1
+#define SPIFFS_GC_STATS                 0
 #endif
 
 // Garbage collecting examines all pages in a block which and sums up
@@ -187,7 +189,7 @@
 // be accepted for mounting with a configuration defining the filesystem as 2
 // megabytes.
 #ifndef SPIFFS_USE_MAGIC_LENGTH
-#define SPIFFS_USE_MAGIC_LENGTH         (0)
+#define SPIFFS_USE_MAGIC_LENGTH         (1)
 #endif
 #endif
 
@@ -232,7 +234,7 @@
 
 // Enable this if your target needs aligned data for index tables
 #ifndef SPIFFS_ALIGNED_OBJECT_INDEX_TABLES
-#define SPIFFS_ALIGNED_OBJECT_INDEX_TABLES       0
+#define SPIFFS_ALIGNED_OBJECT_INDEX_TABLES       1
 #endif
 
 // Enable this if you want the HAL callbacks to be called with the spiffs struct

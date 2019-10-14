@@ -4,8 +4,6 @@
 #include <stdio.h>
 #include "freertos/semphr.h"
 
-#include "user_debug.h"
-
 #define NUM_SYS_FD 3
 
 static spiffs fs;
@@ -17,11 +15,6 @@ static u8_t *spiffs_cache_buf;
 static xSemaphoreHandle spiffs_lock;				// Semaphore for spiffs
 
 #define FLASH_UNIT_SIZE 4
-
-s32_t esp_spiffs_errno(void)
-{
-	return SPIFFS_errno(&fs);
-}
 
 void spiffs_api_lock(struct spiffs_t *fs)
 {
@@ -166,8 +159,6 @@ s32_t esp_spiffs_init(struct esp_spiffs_config *config)
         free(spiffs_fd_buf);
         free(spiffs_cache_buf);
     }
-
-    ret = SPIFFS_check(&fs);
 
     return ret;        
 }

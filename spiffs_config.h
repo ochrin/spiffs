@@ -24,6 +24,11 @@
 
 #include "freertos/FreeRTOS.h"
 
+struct spiffs_t;
+
+void spiffs_api_lock(struct spiffs_t *);
+void spiffs_api_unlock(struct spiffs_t *);
+
 // compile time switches
 
 // Set generic spiffs debug output call.
@@ -94,7 +99,7 @@
 // Enables/disable memory read caching of nucleus file system operations.
 // If enabled, memory area must be provided for cache in SPIFFS_mount.
 #ifndef  SPIFFS_CACHE
-#define SPIFFS_CACHE                    1
+#define SPIFFS_CACHE                    0
 #endif
 #if SPIFFS_CACHE
 // Enables memory write caching for file descriptors in hydrogen
@@ -116,7 +121,7 @@
 
 // Define maximum number of gc runs to perform to reach desired free pages.
 #ifndef SPIFFS_GC_MAX_RUNS
-#define SPIFFS_GC_MAX_RUNS              10
+#define SPIFFS_GC_MAX_RUNS              5
 #endif
 
 // Enable/disable statistics on gc. Debug/test purpose only.
@@ -198,11 +203,11 @@
 
 // define this to enter a mutex if you're running on a multithreaded system
 #ifndef SPIFFS_LOCK
-#define SPIFFS_LOCK(fs)
+#define SPIFFS_LOCK(fs)   spiffs_api_lock(fs)
 #endif
 // define this to exit a mutex if you're running on a multithreaded system
 #ifndef SPIFFS_UNLOCK
-#define SPIFFS_UNLOCK(fs)
+#define SPIFFS_UNLOCK(fs) spiffs_api_unlock(fs)
 #endif
 
 // Enable if only one spiffs instance with constant configuration will exist
@@ -328,7 +333,7 @@
 // in the api. This function will visualize all filesystem using given printf
 // function.
 #ifndef SPIFFS_TEST_VISUALISATION
-#define SPIFFS_TEST_VISUALISATION         1
+#define SPIFFS_TEST_VISUALISATION         0
 #endif
 #if SPIFFS_TEST_VISUALISATION
 #ifndef spiffs_printf

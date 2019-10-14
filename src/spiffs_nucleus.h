@@ -459,7 +459,7 @@ typedef struct {
   u32_t fdoffset;
   // fd flags
   spiffs_flags flags;
-#if SPIFFS_CACHE_WR
+#if SPIFFS_CACHE && SPIFFS_CACHE_WR
   spiffs_cache_page *cache_page;
 #endif
 #if SPIFFS_TEMPORAL_FD_CACHE

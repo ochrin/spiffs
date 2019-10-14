@@ -92,7 +92,7 @@
 // Enables/disable memory read caching of nucleus file system operations.
 // If enabled, memory area must be provided for cache in SPIFFS_mount.
 #ifndef  SPIFFS_CACHE
-#define SPIFFS_CACHE                    1
+#define SPIFFS_CACHE                    0
 #endif
 #if SPIFFS_CACHE
 // Enables memory write caching for file descriptors in hydrogen
@@ -114,7 +114,7 @@
 
 // Define maximum number of gc runs to perform to reach desired free pages.
 #ifndef SPIFFS_GC_MAX_RUNS
-#define SPIFFS_GC_MAX_RUNS              10
+#define SPIFFS_GC_MAX_RUNS              5
 #endif
 
 // Enable/disable statistics on gc. Debug/test purpose only.

@@ -33,7 +33,7 @@ void spiffs_api_unlock(struct spiffs_t *);
 
 // Set generic spiffs debug output call.
 #ifndef SPIFFS_DBG
-#define SPIFFS_DBG(_f, ...) //printf(_f, ## __VA_ARGS__)
+#define SPIFFS_DBG(_f, ...) // printf(_f, ## __VA_ARGS__)
 #endif
 // Set spiffs debug output call for garbage collecting.
 #ifndef SPIFFS_GC_DBG
@@ -121,7 +121,7 @@ void spiffs_api_unlock(struct spiffs_t *);
 
 // Define maximum number of gc runs to perform to reach desired free pages.
 #ifndef SPIFFS_GC_MAX_RUNS
-#define SPIFFS_GC_MAX_RUNS              5
+#define SPIFFS_GC_MAX_RUNS              10
 #endif
 
 // Enable/disable statistics on gc. Debug/test purpose only.
@@ -221,19 +221,19 @@ void spiffs_api_unlock(struct spiffs_t *);
 // Instead of giving parameters in config struct, singleton build must
 // give parameters in defines below.
 #ifndef SPIFFS_CFG_PHYS_SZ
-#define SPIFFS_CFG_PHYS_SZ(ignore)        (1024*1024*2)
+#define SPIFFS_CFG_PHYS_SZ(ignore)        (960*1024)
 #endif
 #ifndef SPIFFS_CFG_PHYS_ERASE_SZ
-#define SPIFFS_CFG_PHYS_ERASE_SZ(ignore)  (65536)
+#define SPIFFS_CFG_PHYS_ERASE_SZ(ignore)  (64*1024)
 #endif
 #ifndef SPIFFS_CFG_PHYS_ADDR
-#define SPIFFS_CFG_PHYS_ADDR(ignore)      (0)
+#define SPIFFS_CFG_PHYS_ADDR(ignore)      (0x300000)
 #endif
 #ifndef SPIFFS_CFG_LOG_PAGE_SZ
 #define SPIFFS_CFG_LOG_PAGE_SZ(ignore)    (256)
 #endif
 #ifndef SPIFFS_CFG_LOG_BLOCK_SZ
-#define SPIFFS_CFG_LOG_BLOCK_SZ(ignore)   (65536)
+#define SPIFFS_CFG_LOG_BLOCK_SZ(ignore)   (64*1024)
 #endif
 #endif
 

@@ -96,7 +96,10 @@ static s32_t esp_spiffs_erase(u32_t addr, u32_t size)
 
 s32_t esp_spiffs_init(struct esp_spiffs_config *config)
 {
-    if (SPIFFS_mounted(&fs)) {
+	u32_t total, used;
+	s32_t ret2;
+
+	if (SPIFFS_mounted(&fs)) {
         return -1;
     }
 
@@ -159,6 +162,15 @@ s32_t esp_spiffs_init(struct esp_spiffs_config *config)
         free(spiffs_fd_buf);
         free(spiffs_cache_buf);
     }
+
+    ret2 = SPIFFS_info(&fs, &total, &used);
+    printf("\nSPIFFS info (%d) T:%d U:%d\n", ret2, total, used);
+
+//    ret2 = SPIFFS_gc(&fs, used);
+//    os_printk(KERN_DBG, "BER_GC: %d\n", ret2);
+
+    ret2 = SPIFFS_check(&fs);
+    printf("SPIFFS check done (%d)\n", ret2);
 
     return ret;        
 }
